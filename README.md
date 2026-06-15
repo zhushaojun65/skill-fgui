@@ -74,7 +74,6 @@ fgui/
   </displayList>
   <Button sound="ui://9leh0eyfo4lt7w"/>
   <transition name="t0">
-    <item time="0" type="Pivot" value="0.5,0.5"/>
     <item time="0" type="Scale" tween="true"
           startValue="1,1" endValue="0.95,0.95" duration="3"/>
     <item time="3" type="Scale" tween="true"
