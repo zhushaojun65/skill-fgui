@@ -4,7 +4,7 @@
 
 ## 简介
 
-本 Skill 提供 FairyGUI Unity SDK 源 XML 的开发参考，帮助开发者快速创建 UI 组件、动效、控制器等。生成 XML 时优先采用 SDK 示例工程中的源 XML 写法，运行时二进制字段只作为语义校验依据。
+本 Skill 提供 FairyGUI Unity SDK 源 XML 的开发参考，并合并了 `fgui-transition` 的通用动效模板库。它帮助开发者快速创建 UI 组件、适配预制 Transition 动效、编写控制器和齿轮绑定。生成 XML 时优先采用 SDK 示例工程中的源 XML 写法，运行时二进制字段只作为语义校验依据。
 
 ## 参考资料
 
@@ -16,6 +16,7 @@
 | 模块 | 说明 |
 |------|------|
 | 动效 (Transition) | 入场/退场动画、缓动效果、音效播放 |
+| 动效模板库 | 预制入场、退场、循环、特效、单组件状态动效模板 |
 | 控制器 (Controller) | 状态管理、页面切换 |
 | 齿轮 (Gear) | 元素属性与控制器绑定 |
 | 显示元素 | image/text/loader/graph/list/group 等 |
@@ -30,10 +31,18 @@ fgui/
 ├── references/
 │   ├── notes.md               # 通用规则、GObject 属性
 │   ├── transition.md          # 动效定义
+│   ├── transition_templates.md # 动效模板索引、选择流程、适配规则
 │   ├── gear.md                # 控制器、齿轮机制
 │   ├── elements.md            # 显示元素类型
 │   ├── components.md          # 扩展组件类型
 │   └── relation.md            # 关联关系
+├── templates/                  # 预制 Transition 动效模板
+│   ├── jelly.md                # 果冻入场
+│   ├── fade_in.md              # 淡入
+│   ├── slide_up.md             # 底部滑入
+│   ├── pulse.md                # 脉冲提示
+│   ├── badge_beat.md           # 红点/未读徽记心跳
+│   └── ...                     # 共 28 个模板
 └── README.md                  # 本文件
 ```
 
@@ -43,16 +52,35 @@ fgui/
 
 - 创建/修改 FairyGUI 组件 XML 文件
 - 添加动画效果 (Transition)
+- 选择或适配预制动效模板
 - 设置状态切换 (Controller/Gear)
 - 添加显示元素 (image/text/loader 等)
 - 创建扩展组件 (Button/ProgressBar 等)
 
 ### 触发关键词
 
-- 动画、动效、transition、缓动、ease
+- FairyGUI、FGUI、GComponent、UIPackage、组件 XML
+- 动画、动效、transition、缓动、ease、动效模板、预制动画、有什么动效
+- 入场、退场、循环、特效、单组件、组件状态
+- 果冻、弹跳、淡入、淡出、滑入、滑出、脉冲、呼吸、loading、抖动、闪烁、翻转
+- 红点、未读、新消息、徽记、角标、badge、pulse
 - 控制器、状态切换、gear、页面切换
 - 图片、文本、列表、loader、image、text
 - Button、进度条、滑块、下拉框
+
+## 按需加载原则
+
+`SKILL.md` 只负责路由。处理任务时先读取 `references/notes.md`，再按任务读取专项模块。涉及预制动效时读取 `references/transition.md` 和 `references/transition_templates.md`，然后只读取实际需要的 `templates/*.md`。只有维护或审查模板库时才批量读取所有模板。
+
+## 动效模板分类
+
+| 分类 | 数量 | 示例 |
+|------|------|------|
+| 入场类 | 6 | Jelly、Fade In、Slide Up、Scale Bounce In |
+| 退场类 | 5 | Fade Out、Slide Down、Scale Out |
+| 循环类 | 5 | Breathing、Pulse、Float、Spin Loop |
+| 特效类 | 5 | Shake、Tap Feedback、Flash、Flip |
+| 单组件类 | 7 | Component Select Pop、Component Disable Dim、Badge Beat |
 
 ## 示例
 

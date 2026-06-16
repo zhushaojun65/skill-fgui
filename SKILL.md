@@ -1,6 +1,6 @@
 ---
 name: fgui
-description: FairyGUI 组件开发指南。用于创建/修改 FairyGUI 组件 XML 文件，包括动效(Transition)、控制器、齿轮(Gear)、显示元素、扩展组件等。当需要处理 FairyGUI UI 组件 XML、创建动画效果、设置状态切换、添加显示元素时使用此 Skill。
+description: FairyGUI/FGUI 组件开发与动效模板指南。用于创建、修改、审查 FairyGUI 组件 XML，处理 Transition 动效、预制动画模板、入场/退场/循环/特效/单组件状态动效、红点/未读/新消息提示、控制器 Controller、齿轮 Gear、显示元素、扩展组件和关联关系。当用户提到 FairyGUI、FGUI、GComponent、UIPackage、transition、动效、动画、缓动、ease、果冻、弹跳、淡入、淡出、滑入、滑出、脉冲、呼吸、loading、抖动、闪烁、翻转、红点、未读、徽记、按钮状态、组件 XML、controller、gear、loader、Button、ProgressBar、Slider 等相关任务时使用此 Skill。
 ---
 
 # FairyGUI 组件开发
@@ -13,6 +13,7 @@ description: FairyGUI 组件开发指南。用于创建/修改 FairyGUI 组件 X
 |------|------|----------|
 | 注意事项 | references/notes.md | 通用规则、GObject 属性、颜色格式、帧率、混合模式 |
 | 动效 | references/transition.md | 创建/修改 Transition 动画、缓动效果 |
+| 动效模板库 | references/transition_templates.md | 选择/适配预制动效模板，包含入场、退场、循环、特效、单组件状态 |
 | 齿轮 | references/gear.md | 控制器定义、状态切换、齿轮绑定 |
 | 元素 | references/elements.md | image/text/loader/graph/group/list 等显示元素 |
 | 扩展组件 | references/components.md | Button/ProgressBar/Slider/ComboBox/Label/ScrollBar/Tree 等 |
@@ -23,17 +24,31 @@ description: FairyGUI 组件开发指南。用于创建/修改 FairyGUI 组件 X
 1. **分析任务**，确定涉及哪些模块
 2. **总是先加载 `notes.md`**（包含 GObject 通用属性和基本规则）
 3. **再加载需要的专项模块**（读取对应 `.md` 文件）
-4. **多模块时按优先级加载**：注意事项 > 动效 > 齿轮 > 元素 > 扩展组件
+4. **涉及预制动效模板时**，先加载 `transition.md` 和 `transition_templates.md`，再只读取被选中的 `templates/*.md`
+5. **不要一次性加载全部模板**，除非任务是审查、迁移、合并或维护模板库本身
+6. **多模块时按优先级加载**：注意事项 > 动效 > 动效模板库 > 齿轮 > 元素 > 扩展组件 > 关联关系
 
 ## 任务类型映射
 
 | 任务关键词 | 加载模块 |
 |------------|----------|
 | 动画、动效、transition、缓动、ease、入场、退场 | 注意事项 + 动效 |
+| 动效模板、模板库、预制动画、有什么动效、果冻、弹跳、淡入、淡出、滑入、滑出、脉冲、呼吸、loading、抖动、闪烁、翻转 | 注意事项 + 动效 + 动效模板库 + 对应模板 |
+| 红点、未读、新消息、徽记、角标、提示动效、badge、pulse | 注意事项 + 动效 + 动效模板库 + 对应提示模板 |
+| 单组件、选中、禁用、恢复可用、数值跳动、解锁、按钮状态、组件状态 | 注意事项 + 动效 + 动效模板库 + 对应单组件模板 |
 | 控制器、状态切换、gear、页面切换、按钮状态 | 注意事项 + 齿轮 |
 | 图片、文本、列表、loader、image、text、graph、richtext、textinput | 注意事项 + 元素 |
 | Button、进度条、滑块、下拉框、ScrollBar、Tree | 注意事项 + 扩展组件 |
 | 关联、自适应、跟随、居中、对齐 | 注意事项 + 关联关系 |
+
+## 动效模板按需加载
+
+`fgui-transition` 的模板库已合并到当前 Skill：
+
+- 模板索引与选择流程：`references/transition_templates.md`
+- 具体模板文件：`templates/*.md`
+
+使用模板时先根据用户需求确定分类和名称；如果需求已经明确（例如“给红点加心跳提示”或“做一个 slide up 入场”），直接读取对应模板文件并适配目标组件。只有当用户询问“有什么动效可用”或需求不明确时，才展示分类菜单让用户选择。
 
 ---
 
