@@ -8,7 +8,8 @@
 <image id="n1" name="bg" src="资源ID"
        xy="x,y" size="宽,高"
        color="#ffffff"
-       flip="none|horizontal|vertical|both"
+       flip="hz|vt|both"
+       aspect="true"
        fillMethod="none|horizontal|vertical|radial90|radial180|radial360"
        fillOrigin="0" fillClockwise="true" fillAmount="1">
   <relation ... />
@@ -20,7 +21,8 @@
 |------|------|--------|
 | `src` | 图片资源ID | 必填 |
 | `color` | 颜色叠加 `#RRGGBB` | `"#ffffff"` |
-| `flip` | 翻转方式 | `"none"` |
+| `flip` | 翻转方式: `hz`=水平, `vt`=垂直, `both`=双向；不翻转时通常省略 | 省略 |
+| `aspect` | 保持资源宽高比 | `false` |
 | `fillMethod` | 填充方式 | `"none"` |
 | `fillOrigin` | 填充起点 (int，含义随 fillMethod 变化) | `0` |
 | `fillClockwise` | 是否顺时针填充 | `true` |
@@ -72,6 +74,9 @@
 | `strikethrough` | 删除线 | `false` |
 | `strokeColor` | 描边颜色 `#RRGGBB` | 无 |
 | `strokeSize` | 描边粗细 (float) | `1` |
+| `faceDilate` | TextMeshPro 字面膨胀，启用 `FAIRYGUI_TMPRO` 时有效 | `0` |
+| `outlineSoftness` | TextMeshPro 描边柔化，启用 `FAIRYGUI_TMPRO` 时有效 | `0` |
+| `underlaySoftness` | TextMeshPro 阴影柔化，启用 `FAIRYGUI_TMPRO` 时有效 | `0` |
 | `shadowColor` | 阴影颜色 `#RRGGBB` | 无 |
 | `shadowOffset` | 阴影偏移 `"x,y"` | `"1,1"` |
 | `ubb` | 是否支持 UBB 标签 | `false` |
@@ -95,21 +100,23 @@
 
 ---
 
-## 文本输入 (textinput)
+## 文本输入（text input）
 
 ```xml
-<textinput id="n2c" name="input"
-           xy="0,0" size="200,30"
-           font="字体名" fontSize="16" color="#000000"
-           align="left" vAlign="middle"
-           singleLine="true" maxLength="20"
-           password="false" restrict="[0-9]"
-           prompt="请输入..."
-           keyboardType="0"/>
+<text id="n2c" name="input"
+      input="true"
+      xy="0,0" size="200,30"
+      font="字体名" fontSize="16" color="#000000"
+      align="left" vAlign="middle"
+      singleLine="true" maxLength="20"
+      password="false" restrict="[0-9]"
+      prompt="请输入..."
+      keyboardType="0"/>
 ```
 
 | 属性 | 说明 | 默认值 |
 |------|------|--------|
+| `input` | 标记该 text 为输入框；当前 SDK 示例源 XML 使用 `<text input="true">` | `false` |
 | `prompt` | 占位提示文字 | 无 |
 | `password` | 是否密码模式 | `false` |
 | `restrict` | 输入限制（正则表达式） | 无 |
@@ -144,7 +151,7 @@
 |------|----------|
 | `empty` | 无（仅占位，用于点击区域） |
 | `rect` | `corner="r1,r2,r3,r4"` (四角圆角，可简写为单值) |
-| `ellipse` | 无 |
+| `eclipse` | 椭圆；源 XML 使用这个拼写 |
 | `polygon` | `points="x1,y1,x2,y2,..."` (顶点坐标列表) |
 | `regular_polygon` | `sides="6"` (边数), `startAngle="0"`, `distances="0.5,0.8,..."` (顶点距离) |
 
@@ -158,7 +165,7 @@
         url="ui://包ID资源ID"
         align="center" vAlign="middle"
         fill="none|scale|scaleMatchHeight|scaleMatchWidth|scaleFree|scaleNoBorder"
-        shrinkOnly="true" autoSize="false"
+        shrinkOnly="true" autoSize="false" aspect="true"
         errorSign="true"
         playing="true" frame="0"
         color="#ffffff"
@@ -174,6 +181,7 @@
 | `fill` | 填充缩放模式 | `"none"` |
 | `shrinkOnly` | 仅缩小不放大 | `false` |
 | `autoSize` | 自动调节大小 | `false` |
+| `aspect` | 保持资源宽高比 | `false` |
 | `errorSign` | 加载失败时显示错误标志 | `true` |
 | `playing` | 是否播放动画 | `true` |
 | `frame` | 动画帧 | `0` |
@@ -211,7 +219,7 @@
 <movieclip id="n7" name="anim" src="资源ID"
            xy="0,0" playing="true" frame="0"
            color="#ffffff"
-           flip="none|horizontal|vertical|both"/>
+           flip="hz|vt|both"/>
 ```
 
 | 属性 | 说明 | 默认值 |
@@ -220,7 +228,7 @@
 | `playing` | 是否播放 | `true` |
 | `frame` | 起始帧 | `0` |
 | `color` | 颜色叠加 `#RRGGBB` | `"#ffffff"` |
-| `flip` | 翻转方式 | `"none"` |
+| `flip` | 翻转方式: `hz`=水平, `vt`=垂直, `both`=双向；不翻转时通常省略 | 省略 |
 
 ---
 
@@ -256,12 +264,16 @@
       lineGap="6" colGap="6"
       align="left" vAlign="top"
       defaultItem="ui://包ID组件ID"
+      selectionController="控制器名"
+      pageController="控制器名"
+      scrollItemToViewOnClick="true"
+      foldInvisibleItems="false"
       autoItemSize="true"
       renderOrder="ascent|descent|arch"
       apexIndex="0">
   <!-- 预设项 -->
   <item url="ui://组件URL" title="标题" icon="图标URL" name="项名称"
-        selectedTitle="选中标题" selectedIcon="选中图标"/>
+        selectedTitle="选中标题" selectedIcon="选中图标" level="0"/>
 </list>
 ```
 
@@ -278,9 +290,32 @@
 | `lineGap` | 行间距 | `0` |
 | `colGap` | 列间距 | `0` |
 | `defaultItem` | 默认项组件 URL | 无 |
+| `selectionController` | 选中项同步到指定控制器 | 无 |
+| `pageController` | 分页/滚动页同步到指定控制器 | 无 |
+| `scrollItemToViewOnClick` | 点击项时滚动到可见区域 | `false` |
+| `foldInvisibleItems` | 折叠不可见项占用空间 | `false` |
 | `autoItemSize` | 自动调整项大小 | `true` |
 | `renderOrder` | 渲染顺序 | `"ascent"` |
 | `apexIndex` | arch 模式顶点索引 | `0` |
+
+### 树形列表写法
+
+当前 SDK 示例源 XML 使用 `list treeView="true"` 表示树，而不是独立 `<component extention="Tree">`：
+
+```xml
+<list id="n_tree" name="tree" size="300,400"
+      treeView="true" indent="15" clickToExpand="1">
+  <item url="ui://包ID节点组件ID" title="根节点" level="0"/>
+  <item url="ui://包ID节点组件ID" title="子节点" level="1"/>
+</list>
+```
+
+| 属性 | 说明 | 默认值 |
+|------|------|--------|
+| `treeView` | 标记该 list 为树形列表 | `false` |
+| `indent` | 子节点缩进像素 | `15` |
+| `clickToExpand` | 点击展开模式: `0`=无, `1`=单击, `2`=双击 | `0` |
+| `item.level` | 预设树节点层级 | `0` |
 
 ---
 

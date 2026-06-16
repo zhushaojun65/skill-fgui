@@ -5,7 +5,7 @@ description: FairyGUI 组件开发指南。用于创建/修改 FairyGUI 组件 X
 
 # FairyGUI 组件开发
 
-> 本 Skill 提供 FairyGUI 组件 XML 的完整开发指南。根据任务需求按需加载对应模块。
+> 本 Skill 提供 FairyGUI Unity SDK 源 XML 的开发参考。优先按 SDK 示例工程中的 XML 写法生成内容；运行时二进制字段只作为语义校验依据。
 
 ## 模块索引
 
@@ -22,7 +22,7 @@ description: FairyGUI 组件开发指南。用于创建/修改 FairyGUI 组件 X
 
 1. **分析任务**，确定涉及哪些模块
 2. **总是先加载 `notes.md`**（包含 GObject 通用属性和基本规则）
-3. **再加载需要的专项模块**（使用 view_file 读取对应 .md 文件）
+3. **再加载需要的专项模块**（读取对应 `.md` 文件）
 4. **多模块时按优先级加载**：注意事项 > 动效 > 齿轮 > 元素 > 扩展组件
 
 ## 任务类型映射
@@ -68,6 +68,9 @@ description: FairyGUI 组件开发指南。用于创建/修改 FairyGUI 组件 X
 | `mask` | 遮罩元素 ID | 无 |
 | `reversedMask` | 是否反向遮罩 | `false` |
 | `hitTest` | 像素级点击测试 `"resourceId,x,y"` | 无 |
+| `bgColor` / `bgColorEnabled` | 组件背景色与是否启用背景色 | 无 / `false` |
+| `initName` | 初始化名称，源 XML 可出现 | 无 |
+| `idnum` | 编辑器生成 ID 计数，保留即可，手写通常不需要 | 无 |
 
 ### 滚动属性（overflow="scroll" 时）
 
@@ -79,6 +82,11 @@ description: FairyGUI 组件开发指南。用于创建/修改 FairyGUI 组件 X
 | `scrollBarMargin` | 滚动条边距 `"上,右,下,左"` | 无 |
 | `scrollBarRes` | 滚动条资源 `"垂直资源ID,水平资源ID"` | 无 |
 | `ptrRes` | 下拉刷新资源 `"headerResId,footerResId"` | 无 |
+| `pageController` | 滚动页同步到控制器 | 无 |
+| `scrollItemToViewOnClick` | 点击子项时滚动到可见区域 | `false` |
+| `foldInvisibleItems` | 折叠不可见子项占位 | `false` |
+
+常用 `scrollBarFlags` 位含义：`2`=snapToItem，`8`=pageMode，`16/32`=强制开启/关闭 touchEffect，`64/128`=强制开启/关闭 bounceback，`256`=禁用惯性，`512`=禁用遮罩裁剪，`1024`=滚动条浮动，`2048`=不裁剪 margin。
 
 ---
 

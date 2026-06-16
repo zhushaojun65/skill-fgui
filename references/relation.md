@@ -30,6 +30,8 @@
 | `bottom-bottom` | 底部跟随目标底部 |
 | `width-width` | 宽度跟随 |
 | `height-height` | 高度跟随 |
+| `width` | 宽度跟随的快捷写法（源 XML 中可见） |
+| `height` | 高度跟随的快捷写法（源 XML 中可见） |
 
 ### 扩展关系（保持间距）
 
@@ -49,6 +51,7 @@
 | 关系对 | 说明 |
 |--------|------|
 | `size-size` | 尺寸跟随（宽+高同时跟随） |
+| `width,height` | 宽高同时跟随的快捷组合（源 XML 中常见于按钮/窗口组件） |
 
 ### 百分比关系
 
@@ -64,6 +67,11 @@
 <!-- 跟随父组件宽高 -->
 <image>
   <relation target="" sidePair="width-width,height-height"/>
+</image>
+
+<!-- 跟随父组件宽高的快捷写法，SDK 示例 XML 中常见 -->
+<image>
+  <relation target="" sidePair="width,height"/>
 </image>
 
 <!-- 相对于元素n1右对齐 -->

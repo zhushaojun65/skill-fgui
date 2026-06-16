@@ -20,12 +20,26 @@
 
 ```xml
 <controller name="c1" pages="0,off,1,on" selected="0">
-  <action type="PlayTransition" toPage="1" 
+  <action type="PlayTransition" fromPage="0" toPage="1"
           transitionName="showAni" playTimes="1" delay="0" stopOnExit="true"/>
   <action type="ChangePage" toPage="0"
           objectId="n5" controllerName="state" targetPage="0"/>
 </controller>
 ```
+
+| action 属性 | 说明 |
+|-------------|------|
+| `fromPage` | 触发来源页条件，省略表示不限 |
+| `toPage` | 触发目标页条件，省略表示不限 |
+| `type="PlayTransition"` | 播放本组件上的 transition |
+| `transitionName` | 要播放的 transition 名称 |
+| `playTimes` | 播放次数；`-1` 通常表示循环 |
+| `delay` | 延迟秒数 |
+| `stopOnExit` | 离开匹配页时停止该 transition |
+| `type="ChangePage"` | 修改指定对象上的控制器页 |
+| `objectId` | 目标对象 ID |
+| `controllerName` | 目标对象上的控制器名 |
+| `targetPage` | 目标页；`~1` 表示来源控制器当前页，`~2` 表示来源控制器上一页 |
 
 ## 示例
 
@@ -63,11 +77,11 @@
 | `gearSize` | 2 | 尺寸+缩放 | `"w,h,scaleX,scaleY\|..."` |
 | `gearLook` | 3 | 外观 | `"alpha,rotation,grayed,touchable\|..."` |
 | `gearColor` | 4 | 颜色 | `"#颜色,#描边颜色\|..."` |
-| `gearAni` | 5 | 动画 | `"帧,状态(p/s),,\|..."` |
+| `gearAni` | 5 | 动画 | `"帧,状态(p/s)\|..."` |
 | `gearText` | 6 | 文本 | `"文本1\|文本2"` |
 | `gearIcon` | 7 | 图标 | `"url1\|url2"` |
-| `gearFontSize` | 8 | 字号 | `"字号1\|字号2"` |
-| `gearDisplay2` | 9 | 多控制器显示 | — (使用 pages + condition) |
+| `gearDisplay2` | 8 | 多控制器显示 | — (使用 pages + condition) |
+| `gearFontSize` | 9 | 字号 | `"字号1\|字号2"` |
 
 > `\|` 分隔不同页面的值，`-` 或空值表示该页面不设置。
 
@@ -80,7 +94,7 @@
 | `values` | 各页面对应值（`\|` 分隔） | gearXY/Size/Look/Color/Ani/Text/Icon/FontSize |
 | `default` | 未指定页面的默认值 | gearXY/Size/Look/Color/Ani/Text/Icon/FontSize |
 | `tween` | 是否缓动切换 | gearXY/Size/Look |
-| `ease` | 缓动函数 | gearXY/Size/Look |
+| `ease` | 缓动函数（SDK 也支持 `Custom` 曲线） | gearXY/Size/Look |
 | `duration` | 缓动时长（秒） | gearXY/Size/Look |
 
 ## gearDisplay - 显示控制
@@ -124,7 +138,7 @@
 
 ```xml
 <image>
-  <!-- 格式: alpha,rotation,grayed,touchable -->
+  <!-- 格式: alpha,rotation,grayed[,touchable]；第4项可省略 -->
   <gearLook controller="button" pages="0,2"
             values="1.00,0,0,0|0.00,0,0,0"
             default="1.00,0,0,0"
@@ -145,8 +159,8 @@
 
 ```xml
 <movieclip>
-  <!-- 格式: 帧,播放状态(p=play/s=stop),, -->
-  <gearAni controller="c1" pages="1" values="0,s,," default="0,p,,"/>
+  <!-- 格式: 帧,播放状态(p=play/s=stop)；loader3D 还可附带 animationName、skinName -->
+  <gearAni controller="c1" pages="1" values="0,s" default="0,p"/>
 </movieclip>
 ```
 

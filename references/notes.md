@@ -1,5 +1,9 @@
 # 注意事项
 
+## 适用范围
+
+本知识库面向 FairyGUI 编辑器导出的**源 XML**（如 `UIProject/assets/**/*.xml`）。Unity SDK 运行时会把包数据读成二进制 `ByteBuffer`，部分字段在运行时是数字枚举，但源 XML 中是字符串；生成或修改 XML 时必须优先采用源 XML 写法。
+
 1.  **ID规则**: `id` 属性在包内必须唯一，通常由编辑器自动生成
 2.  **名称约定**: 扩展组件有特定的名称约定（如 `title`, `bar`, `grip`）
 3.  **坐标系**: 左上角为原点，向右向下为正
@@ -25,6 +29,7 @@
 | `fileName` | 原始文件名（仅编辑器用） | 可选 |
 | `xy` | 位置坐标 `"x,y"` | `"0,0"` |
 | `size` | 尺寸 `"宽,高"` | 原始尺寸 |
+| `aspect` | 保持资源宽高比（源 XML 常见于 image/component） | `false` |
 | `restrictSize` | 尺寸限制 `"minW,maxW,minH,maxH"` | 无限制 |
 | `pivot` | 轴心 (0-1) `"px,py"` | `"0,0"` |
 | `anchor` | 是否启用锚点 | `false` |
@@ -41,6 +46,8 @@
 | `customData` | 自定义数据（传递给代码） | 无 |
 | `tooltips` | 悬停提示文字 | 无 |
 | `group` | 所属组ID | 无 |
+| `locked` | 编辑器锁定标记，源 XML 可出现，通常不作为运行时逻辑依赖 | `false` |
+| `sortingOrder` | 自定义显示深度，非 0 时会影响同级显示排序 | `0` |
 
 ## 混合模式 (blend)
 
@@ -54,6 +61,9 @@
 | `mask` | 遮罩 |
 | `below` | 置于下方 |
 | `off` | 关闭 |
+| `normal` | 普通混合（SDK enum 支持） |
+| `one_oneMinusSrcAlpha` | 预乘透明相关混合（SDK enum 支持） |
+| `custom1`/`custom2`/`custom3` | 自定义混合模式（SDK enum 支持） |
 
 ## 资源引用规则
 

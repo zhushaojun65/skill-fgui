@@ -25,7 +25,7 @@
   </displayList>
   <Button mode="Common|Check|Radio"
           sound="ui://音效URL" volume="100"
-          downEffect="0|1|2" downEffectValue="0.9"/>
+          downEffect="scale" downEffectValue="0.9"/>
 </component>
 ```
 
@@ -36,8 +36,10 @@
 | `mode` | 按钮模式 | `"Common"` |
 | `sound` | 点击音效 URL | 无 |
 | `volume` | 音效音量 (0-100) | `100` |
-| `downEffect` | 按下效果: 0=无, 1=变暗, 2=缩放 | `0` |
+| `downEffect` | 按下效果；当前 SDK 示例源 XML 确认值为 `scale`，无效果时通常省略 | 省略 |
 | `downEffectValue` | 效果参数值 | `0.9` |
+
+> Unity 运行时二进制中 `_downEffect` 还有变暗模式（数值 1）和缩放模式（数值 2）。编写源 XML 时不要直接写 `1`/`2`，优先使用编辑器导出的字符串值。
 
 ### 作为子元素引用时 (Setup_AfterAdd)
 
@@ -90,7 +92,7 @@
     <!-- 可选：动画进度 -->
     <movieclip name="ani" src="progressAni"/>
   </displayList>
-  <ProgressBar titleType="percent|valueAndMax|value|max" reverse="false"/>
+  <ProgressBar titleType="percent|valueAndmax|value|max" reverse="false"/>
 </component>
 ```
 
@@ -98,16 +100,25 @@
 
 | 属性 | 说明 | 默认值 |
 |------|------|--------|
-| `titleType` | 标题显示类型 | `"percent"` |
+| `titleType` | 标题显示类型: `percent`, `valueAndmax`, `value`, `max` | `"percent"` |
 | `reverse` | 是否反向（从右到左/从下到上） | `false` |
 
 ### 作为子元素引用时
 
 ```xml
 <component src="progressRes">
-  <ProgressBar value="50" max="100"/>
+  <ProgressBar value="50" min="0" max="100"
+               sound="ui://音效URL" volume="100"/>
 </component>
 ```
+
+| 属性 | 说明 | 默认值 |
+|------|------|--------|
+| `value` | 当前值 | `0` |
+| `min` | 最小值 | `0` |
+| `max` | 最大值 | `100` |
+| `sound` | 点击音效 URL（SDK 版本字段支持） | 无 |
+| `volume` | 音效音量 | `100` |
 
 **约定名称**:
 - `bar`: 横向进度条填充区域
@@ -129,7 +140,8 @@
     </component>
     <text name="title" xy="0,0"/>
   </displayList>
-  <Slider titleType="percent|valueAndMax|value|max" reverse="false"/>
+  <Slider titleType="percent|valueAndmax|value|max"
+          reverse="false" wholeNumbers="false" changeOnClick="true"/>
 </component>
 ```
 
@@ -137,16 +149,24 @@
 
 | 属性 | 说明 | 默认值 |
 |------|------|--------|
-| `titleType` | 标题显示类型 | `"percent"` |
+| `titleType` | 标题显示类型: `percent`, `valueAndmax`, `value`, `max` | `"percent"` |
 | `reverse` | 是否反向 | `false` |
+| `wholeNumbers` | 是否只允许整数 | `false` |
+| `changeOnClick` | 点击轨道是否直接改变值 | `true` |
 
 ### 作为子元素引用时
 
 ```xml
 <component src="sliderRes">
-  <Slider value="50" max="100"/>
+  <Slider value="50" min="0" max="100"/>
 </component>
 ```
+
+| 属性 | 说明 | 默认值 |
+|------|------|--------|
+| `value` | 当前值 | `0` |
+| `min` | 最小值 | `0` |
+| `max` | 最大值 | `100` |
 
 **约定名称**:
 - `bar`: 已滑动区域
@@ -172,6 +192,8 @@
             direction="auto|up|down"/>
 </component>
 ```
+
+> `dropdown` 指向的下拉面板组件内部必须包含名为 `list` 的 `GList`，SDK 会通过 `dropdown.GetChild("list")` 获取它；没有该节点会警告并导致下拉列表无法正常绑定。
 
 ### ComboBox 扩展标签属性
 
@@ -200,6 +222,8 @@
 
 **约定名称**:
 - `title`: 当前选中项文本
+- `icon`: 当前选中项图标（可选）
+- `list`: 下拉面板中的列表，必须在 `dropdown` 组件内部
 
 ---
 
@@ -221,11 +245,21 @@
 ```xml
 <component src="labelRes">
   <Label title="标签文字" icon="ui://图标URL"
-         titleColor="#000000" titleFontSize="16"/>
+         titleColor="#000000" titleFontSize="16"
+         sound="ui://音效URL" volume="100"/>
 </component>
 ```
 
-> 如果 title 元素是 textinput 类型，还支持:
+| 属性 | 说明 |
+|------|------|
+| `title` | 标签标题 |
+| `icon` | 标签图标 URL |
+| `titleColor` | 标题颜色 |
+| `titleFontSize` | 标题字号 |
+| `sound` | 点击音效 URL（SDK 版本字段支持） |
+| `volume` | 音效音量 |
+
+> 如果 `title` 元素是输入框文本（`<text input="true">`），还支持:
 
 | 属性 | 说明 |
 |------|------|
@@ -247,9 +281,13 @@
     <component name="grip" src="scrollGrip"/>
     <graph name="bar" xy="0,20" size="20,160" type="rect" fillColor="#00000000"/>
   </displayList>
-  <ScrollBar/>
+  <ScrollBar fixedGripSize="false"/>
 </component>
 ```
+
+| 属性 | 说明 | 默认值 |
+|------|------|--------|
+| `fixedGripSize` | 固定滑块尺寸，不随内容比例伸缩 | `false` |
 
 **约定名称**:
 - `arrow1`: 向上/向左箭头
@@ -262,20 +300,23 @@
 ## Tree（树组件）
 
 ```xml
-<component size="300,400" extention="Tree">
-  <displayList>
-    <!-- 继承 list 的所有显示元素 -->
-  </displayList>
-  <Tree indent="30" clickToExpand="1"/>
-</component>
+<list id="n_tree" name="tree" size="300,400"
+      treeView="true" indent="30" clickToExpand="1">
+  <item url="ui://包ID节点组件ID" title="根节点" level="0"/>
+  <item url="ui://包ID节点组件ID" title="子节点" level="1"/>
+</list>
 ```
 
-### Tree 扩展标签属性
+### Tree/List 属性
 
 | 属性 | 说明 | 默认值 |
 |------|------|--------|
+| `treeView` | 标记该 list 为树形列表 | `false` |
 | `indent` | 子节点缩进量 (px) | `30` |
 | `clickToExpand` | 点击展开模式: 0=无, 1=单击, 2=双击 | `0` |
+| `item.level` | 预设树节点层级 | `0` |
+
+> 当前 SDK 示例工程使用 `<list treeView="true">` 表达树形列表；不要把它写成独立 `<component extention="Tree">`，除非目标工具链明确会把它转换为 `ObjectType.Tree`。
 
 ---
 
