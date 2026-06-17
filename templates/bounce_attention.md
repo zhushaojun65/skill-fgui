@@ -56,12 +56,12 @@
     <image id="n4_icon" name="newFeature" src="icon_new" xy="60,60" size="80,80"/>
   </displayList>
   <transition name="bounce" frameRate="30">
-    <item time="0" type="XY" target="n4_icon" tween="true" startValue="-,0" endValue="-,-20" duration="4" ease="Sine.Out"/>
-    <item time="4" type="XY" target="n4_icon" tween="true" startValue="-,-20" endValue="-,0" duration="4" ease="Sine.In"/>
-    <item time="8" type="XY" target="n4_icon" tween="true" startValue="-,0" endValue="-,-10" duration="3" ease="Sine.Out"/>
-    <item time="11" type="XY" target="n4_icon" tween="true" startValue="-,-10" endValue="-,0" duration="3" ease="Sine.In"/>
-    <item time="14" type="XY" target="n4_icon" tween="true" startValue="-,0" endValue="-,-4" duration="2" ease="Sine.Out"/>
-    <item time="16" type="XY" target="n4_icon" tween="true" startValue="-,-4" endValue="-,0" duration="2" ease="Sine.In"/>
+    <item time="0" type="XY" target="n4_icon" tween="true" startValue="-,60" endValue="-,40" duration="4" ease="Sine.Out"/>
+    <item time="4" type="XY" target="n4_icon" tween="true" startValue="-,40" endValue="-,60" duration="4" ease="Sine.In"/>
+    <item time="8" type="XY" target="n4_icon" tween="true" startValue="-,60" endValue="-,50" duration="3" ease="Sine.Out"/>
+    <item time="11" type="XY" target="n4_icon" tween="true" startValue="-,50" endValue="-,60" duration="3" ease="Sine.In"/>
+    <item time="14" type="XY" target="n4_icon" tween="true" startValue="-,60" endValue="-,56" duration="2" ease="Sine.Out"/>
+    <item time="16" type="XY" target="n4_icon" tween="true" startValue="-,56" endValue="-,60" duration="2" ease="Sine.In"/>
   </transition>
 </component>
 ```

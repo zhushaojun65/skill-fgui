@@ -2,7 +2,7 @@
 
 ## 动效定义结构
 
-```xml
+```text
 <transition name="动效名称" [frameRate="24"] [options="0"]
             [autoPlay="true" autoPlayRepeat="1" autoPlayDelay="0"]>
   <item time="开始帧" type="动画类型" [target="目标元素ID"]

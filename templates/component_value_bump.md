@@ -52,8 +52,8 @@
   <transition name="componentValueBump" frameRate="30">
     <item time="0" type="Scale" target="n6_value" tween="true" startValue="1,1" endValue="1.18,1.18" duration="4" ease="Sine.Out"/>
     <item time="4" type="Scale" target="n6_value" tween="true" startValue="1.18,1.18" endValue="1,1" duration="8" ease="Back.Out"/>
-    <item time="0" type="XY" target="n6_value" tween="true" startValue="-,0" endValue="-,-8" duration="4" ease="Sine.Out"/>
-    <item time="4" type="XY" target="n6_value" tween="true" startValue="-,-8" endValue="-,0" duration="8" ease="Back.Out"/>
+    <item time="0" type="XY" target="n6_value" tween="true" startValue="-,30" endValue="-,22" duration="4" ease="Sine.Out"/>
+    <item time="4" type="XY" target="n6_value" tween="true" startValue="-,22" endValue="-,30" duration="8" ease="Back.Out"/>
   </transition>
 </component>
 ```

@@ -52,7 +52,7 @@
     <image id="n6_bubble" name="bubble" src="chat_bubble" xy="200,300" size="80,80"/>
   </displayList>
   <transition name="__exit__" frameRate="30">
-    <item time="0" type="XY" target="n6_bubble" tween="true" startValue="-,0" endValue="-,-500" duration="12" ease="Back.In"/>
+    <item time="0" type="XY" target="n6_bubble" tween="true" startValue="-,300" endValue="-,-200" duration="12" ease="Back.In"/>
     <item time="0" type="Scale" target="n6_bubble" tween="true" startValue="1,1" endValue="0.5,0.5" duration="12" ease="Sine.In"/>
     <item time="3" type="Alpha" target="n6_bubble" tween="true" startValue="1" endValue="0" duration="9" ease="Sine.In"/>
   </transition>

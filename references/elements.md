@@ -4,7 +4,7 @@
 
 ## 图片 (image)
 
-```xml
+```text
 <image id="n1" name="bg" src="资源ID"
        xy="x,y" size="宽,高"
        color="#ffffff"
@@ -298,6 +298,21 @@
 | `renderOrder` | 渲染顺序 | `"ascent"` |
 | `apexIndex` | arch 模式顶点索引 | `0` |
 
+### scrollBarFlags 位含义
+
+| 位值 | 含义 |
+|------|------|
+| `1` | 垂直滚动条显示在左侧 |
+| `2` | snapToItem，滚动吸附到项目 |
+| `4` | 滚动条按需显示 |
+| `8` | pageMode，分页滚动 |
+| `16` / `32` | 强制开启 / 关闭 touchEffect |
+| `64` / `128` | 强制开启 / 关闭 bounceback |
+| `256` | 禁用惯性 |
+| `512` | 禁用遮罩裁剪 |
+| `1024` | 滚动条浮动 |
+| `2048` | 不裁剪 margin |
+
 ### 树形列表写法
 
 当前 SDK 示例源 XML 使用 `list treeView="true"` 表示树，而不是独立 `<component extention="Tree">`：
@@ -328,7 +343,8 @@
        lineGap="0" colGap="0"
        excludeInvisibles="false"
        autoSizeDisabled="false"
-       mainGridIndex="-1"/>
+       mainGridIndex="-1"
+       advanced="true"/>
 ```
 
 | 属性 | 说明 | 默认值 |
@@ -339,3 +355,4 @@
 | `excludeInvisibles` | 排除不可见元素 | `false` |
 | `autoSizeDisabled` | 禁用自动尺寸 | `false` |
 | `mainGridIndex` | 主网格索引 (-1=无) | `-1` |
+| `advanced` | 编辑器高级组标记，SDK 示例源 XML 常见；通常保留，不作为运行时业务逻辑依赖 | 省略 |

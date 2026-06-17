@@ -57,11 +57,11 @@
     </component>
   </displayList>
   <transition name="shake" frameRate="30">
-    <item time="0" type="XY" target="n9_input" tween="true" startValue="0,-" endValue="-12,-" duration="2" ease="Sine.Out"/>
-    <item time="2" type="XY" target="n9_input" tween="true" startValue="-12,-" endValue="10,-" duration="2" ease="Sine.InOut"/>
-    <item time="4" type="XY" target="n9_input" tween="true" startValue="10,-" endValue="-8,-" duration="2" ease="Sine.InOut"/>
-    <item time="6" type="XY" target="n9_input" tween="true" startValue="-8,-" endValue="5,-" duration="2" ease="Sine.InOut"/>
-    <item time="8" type="XY" target="n9_input" tween="true" startValue="5,-" endValue="0,-" duration="3" ease="Sine.Out"/>
+    <item time="0" type="XY" target="n9_input" tween="true" startValue="300,-" endValue="288,-" duration="2" ease="Sine.Out"/>
+    <item time="2" type="XY" target="n9_input" tween="true" startValue="288,-" endValue="310,-" duration="2" ease="Sine.InOut"/>
+    <item time="4" type="XY" target="n9_input" tween="true" startValue="310,-" endValue="292,-" duration="2" ease="Sine.InOut"/>
+    <item time="6" type="XY" target="n9_input" tween="true" startValue="292,-" endValue="305,-" duration="2" ease="Sine.InOut"/>
+    <item time="8" type="XY" target="n9_input" tween="true" startValue="305,-" endValue="300,-" duration="3" ease="Sine.Out"/>
   </transition>
 </component>
 ```

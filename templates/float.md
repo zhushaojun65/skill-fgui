@@ -50,7 +50,7 @@
     <image id="n7_arrow" name="arrow" src="guide_arrow" xy="100,50" size="64,64"/>
   </displayList>
   <transition name="float" frameRate="30" autoPlay="true" autoPlayRepeat="-1">
-    <item time="0" type="XY" target="n7_arrow" tween="true" startValue="-,0" endValue="-,-15" duration="36" ease="Sine.InOut" repeat="-1" yoyo="true"/>
+    <item time="0" type="XY" target="n7_arrow" tween="true" startValue="-,50" endValue="-,35" duration="36" ease="Sine.InOut" repeat="-1" yoyo="true"/>
   </transition>
 </component>
 ```

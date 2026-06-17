@@ -22,6 +22,7 @@
 | 显示元素 | image/text/loader/graph/list/group 等 |
 | 扩展组件 | Button/ProgressBar/Slider/ComboBox/Label 等 |
 | 关联关系 | 元素自适应布局 |
+| Unity 运行时 | UIPackage/GComponent/Window/虚拟列表/扩展类注册等按需参考 |
 
 ## 文件结构
 
@@ -35,7 +36,8 @@ fgui/
 │   ├── gear.md                # 控制器、齿轮机制
 │   ├── elements.md            # 显示元素类型
 │   ├── components.md          # 扩展组件类型
-│   └── relation.md            # 关联关系
+│   ├── relation.md            # 关联关系
+│   └── unity_runtime.md       # Unity SDK 运行时接入，按需加载
 ├── templates/                  # 预制 Transition 动效模板
 │   ├── jelly.md                # 果冻入场
 │   ├── fade_in.md              # 淡入
@@ -56,6 +58,7 @@ fgui/
 - 设置状态切换 (Controller/Gear)
 - 添加显示元素 (image/text/loader 等)
 - 创建扩展组件 (Button/ProgressBar 等)
+- 处理 Unity SDK 运行时接入 (UIPackage/GComponent/Window/虚拟列表等)
 
 ### 触发关键词
 
@@ -70,7 +73,7 @@ fgui/
 
 ## 按需加载原则
 
-`SKILL.md` 只负责路由。处理任务时先读取 `references/notes.md`，再按任务读取专项模块。涉及预制动效时读取 `references/transition.md` 和 `references/transition_templates.md`，然后只读取实际需要的 `templates/*.md`。只有维护或审查模板库时才批量读取所有模板。
+`SKILL.md` 只负责路由。处理任务时先读取 `references/notes.md`，再按任务读取专项模块。涉及预制动效时读取 `references/transition.md` 和 `references/transition_templates.md`，然后只读取实际需要的 `templates/*.md`。涉及 Unity 运行时代码时才读取 `references/unity_runtime.md`。只有维护或审查模板库时才批量读取所有模板。
 
 ## 动效模板分类
 

@@ -52,7 +52,7 @@
     </component>
   </displayList>
   <transition name="__enter__" frameRate="30">
-    <item time="0" type="XY" target="n8_toast" tween="true" startValue="-,-300" endValue="-,0" duration="18" ease="Bounce.Out"/>
+    <item time="0" type="XY" target="n8_toast" tween="true" startValue="-,-200" endValue="-,100" duration="18" ease="Bounce.Out"/>
     <item time="0" type="Alpha" target="n8_toast" tween="true" startValue="0" endValue="1" duration="6" ease="Sine.Out"/>
   </transition>
 </component>

@@ -43,7 +43,7 @@
 
 ## 示例
 
-```xml
+```text
 <!-- 按钮状态控制器（标准4态） -->
 <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
 
@@ -166,7 +166,7 @@
 
 ## gearText / gearIcon
 
-```xml
+```text
 <text>
   <gearText controller="lang" pages="0,1" values="Hello|你好" default="Hello"/>
 </text>

@@ -4,7 +4,7 @@
 
 ```xml
 <component size="85,25" extention="Button">
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver,4,disabled,5,selectedDisabled" selected="0"/>
   <displayList>
     <!-- up状态背景 -->
     <image name="bg_up" src="btn_up">
@@ -25,7 +25,7 @@
   </displayList>
   <Button mode="Common|Check|Radio"
           sound="ui://音效URL" volume="100"
-          downEffect="scale" downEffectValue="0.9"/>
+          downEffect="scale" downEffectValue="0.80"/>
 </component>
 ```
 
@@ -37,9 +37,24 @@
 | `sound` | 点击音效 URL | 无 |
 | `volume` | 音效音量 (0-100) | `100` |
 | `downEffect` | 按下效果；当前 SDK 示例源 XML 确认值为 `scale`，无效果时通常省略 | 省略 |
-| `downEffectValue` | 效果参数值 | `0.9` |
+| `downEffectValue` | 效果参数值；SDK 默认值为 `0.8`，源 XML 示例常写 `0.80` | `0.8` |
 
 > Unity 运行时二进制中 `_downEffect` 还有变暗模式（数值 1）和缩放模式（数值 2）。编写源 XML 时不要直接写 `1`/`2`，优先使用编辑器导出的字符串值。
+
+### Button 状态页
+
+`button` 控制器常见状态名如下。页面 ID 不要求固定为 `0..5`，应以 `pages` 中的映射为准；源 XML 示例里既有四态按钮，也有包含禁用态的六态按钮。
+
+| 状态名 | 含义 |
+|--------|------|
+| `up` | 普通态 |
+| `down` | 按下态 |
+| `over` | 悬停态 |
+| `selectedOver` | 选中/按下相关态 |
+| `disabled` | 灰化禁用态 |
+| `selectedDisabled` | 选中且禁用态 |
+
+当按钮 `grayed=true` 且 `button` 控制器存在 `disabled` 页面时，运行时会优先切到 `disabled` / `selectedDisabled`。自定义禁用表现时不要只写四态。
 
 ### 作为子元素引用时 (Setup_AfterAdd)
 
@@ -331,7 +346,7 @@ ui://[包ID][资源ID]
 
 ## 包内引用
 
-```xml
+```text
 <!-- 同包内直接使用资源ID -->
 <image src="rpmb6"/>
 <component src="rpmbz"/>
@@ -339,7 +354,7 @@ ui://[包ID][资源ID]
 
 ## 跨包引用
 
-```xml
+```text
 <!-- 跨包使用完整URL -->
 <Button icon="ui://9leh0eyfrpmbu"/>
 <loader url="ui://otherPackageId/resourceId"/>

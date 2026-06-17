@@ -54,7 +54,7 @@
     </component>
   </displayList>
   <transition name="__enter__" frameRate="30">
-    <item time="0" type="XY" target="n14_mosk" tween="true" startValue="400,-" endValue="0,-" duration="12" ease="Expo.Out"/>
+    <item time="0" type="XY" target="n14_mosk" tween="true" startValue="460,-" endValue="60,-" duration="12" ease="Expo.Out"/>
     <item time="0" type="Alpha" target="n14_mosk" tween="true" startValue="0" endValue="1" duration="8" ease="Sine.Out"/>
   </transition>
 </component>

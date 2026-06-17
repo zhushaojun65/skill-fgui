@@ -63,7 +63,7 @@
 
 ## 示例
 
-```xml
+```text
 <!-- 跟随父组件宽高 -->
 <image>
   <relation target="" sidePair="width-width,height-height"/>
