@@ -27,6 +27,8 @@
 
 > **关于 frameRate**：`frameRate` 是动效自身的播放帧率，**不是项目全局帧率**。transition 内所有 `time` 和 `duration` 数值都按这个帧率换算成秒：例如 `frameRate="30"` 时 `duration="30"` = 1 秒；`frameRate="24"` 时 `duration="24"` = 1 秒。修改 `frameRate` 会等比例改变所有时长。
 
+当前 FairyGUI Unity SDK 示例源 XML 通常省略 `frameRate`，直接写 `time` / `duration` 帧数；模板库为了便于统一动效手感显式写 `frameRate="30"`。从 SDK 示例迁移或回写项目 XML 时，先确认项目编辑器帧率约定，再决定是否保留模板帧率。
+
 ### options 位掩码
 
 | 值 | 说明 |

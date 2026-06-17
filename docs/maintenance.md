@@ -7,6 +7,9 @@
 ## 当前维护规则
 
 - 源 XML 写法以 FairyGUI Unity SDK 示例工程的 `UIProject/assets/**/*.xml` 为准。
+- `package.xml` 资源声明与组件显示对象分开维护；图片资源的 `scale="9grid|tile"` 不等同于显示对象 `scale="sx,sy"`。
+- `margin` / `scrollBarMargin` 按 SDK 读取顺序记录为 `上,下,左,右`，不要写成 CSS 顺序。
+- SDK 示例 transition 基本省略 `frameRate`；模板可显式 `frameRate="30"`，但迁移时必须同步换算 `time` / `duration`。
 - Unity 运行时代码接入按需加载 `references/unity_runtime.md`，不要把运行时 API 展开到 `SKILL.md`。
 - 带 `XY` 的模板示例必须使用绝对坐标，示例元素的 `xy` 应与 transition 的最终坐标一致。
 - 红点、未读、徽记等持续可见提示默认不使用 `Alpha` 淡隐作为主效果。

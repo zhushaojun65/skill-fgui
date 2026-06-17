@@ -33,7 +33,7 @@
 | `restrictSize` | 尺寸限制 `"minW,maxW,minH,maxH"` | 无限制 |
 | `pivot` | 轴心 (0-1) `"px,py"` | `"0,0"` |
 | `anchor` | 是否启用锚点 | `false` |
-| `scale` | 缩放 `"sx,sy"` | `"1,1"` |
+| `scale` | 显示对象变换缩放 `"sx,sy"`；注意 `package.xml` 的 `<image scale="9grid|tile">` 是图片资源缩放模式，见 `resources.md` | `"1,1"` |
 | `skew` | 倾斜 `"sx,sy"` | `"0,0"` |
 | `alpha` | 透明度 (0-1) | `1` |
 | `rotation` | 旋转角度 | `0` |

@@ -27,6 +27,11 @@
 | `fillOrigin` | 填充起点 (int，含义随 fillMethod 变化) | `0` |
 | `fillClockwise` | 是否顺时针填充 | `true` |
 | `fillAmount` | 填充比例 (0-1) | `1` |
+| `scale9grid` / `scale="9grid"` | 仅用于 `package.xml` 图片资源声明，不用于普通显示列表 image | 见 `resources.md` |
+| `scale="tile"` | 仅用于 `package.xml` 图片资源声明，表示平铺资源 | 见 `resources.md` |
+| `duplicatePadding` | 仅用于 `package.xml` 图片资源声明，避免图集边缘采样漏边 | 见 `resources.md` |
+
+> 组件显示列表里的 `<image>` 主要写 `src`、`xy`、`size`、颜色/翻转/填充等显示属性；`package.xml` 中的 `<image>` 是资源声明，两者不要混写。尤其不要把资源声明的 `scale="9grid|tile"` 当成对象缩放。
 
 ### fillOrigin 取值
 
@@ -213,13 +218,17 @@
 
 ---
 
-## 影片剪辑 (movieclip)
+## 影片剪辑 (movieclip / jta)
 
 ```xml
 <movieclip id="n7" name="anim" src="资源ID"
            xy="0,0" playing="true" frame="0"
            color="#ffffff"
            flip="hz|vt|both"/>
+
+<!-- SDK 示例中也会出现 jta 标签，语义同影片剪辑显示对象 -->
+<jta id="n7b" name="effect" src="资源ID"
+     xy="0,0" playing="false" frame="0"/>
 ```
 
 | 属性 | 说明 | 默认值 |
@@ -229,6 +238,8 @@
 | `frame` | 起始帧 | `0` |
 | `color` | 颜色叠加 `#RRGGBB` | `"#ffffff"` |
 | `flip` | 翻转方式: `hz`=水平, `vt`=垂直, `both`=双向；不翻转时通常省略 | 省略 |
+
+> `package.xml` 中声明 JTA 资源时使用 `<movieclip id="资源ID" name="pet.jta" path="/"/>`；组件显示列表中实例化时使用 `<movieclip>` 或 `<jta>` 并通过 `src` 引用资源 ID。
 
 ---
 
@@ -258,8 +269,8 @@
       scroll="horizontal|vertical|both"
       scrollBar="default|visible|auto|hidden"
       scrollBarFlags="0"
-      scrollBarMargin="上,右,下,左"
-      margin="上,右,下,左"
+      scrollBarMargin="上,下,左,右"
+      margin="上,下,左,右"
       clipSoftness="x,y"
       lineGap="6" colGap="6"
       align="left" vAlign="top"
@@ -285,7 +296,8 @@
 | `scroll` | 滚动方向（overflow=scroll 时） | `"vertical"` |
 | `scrollBar` | 滚动条显示策略 | `"default"` |
 | `scrollBarFlags` | 滚动条标志位 (int) | `0` |
-| `margin` | 内边距 `"上,右,下,左"` | `"0,0,0,0"` |
+| `scrollBarMargin` | 滚动条边距 `"上,下,左,右"`，与 SDK 二进制读取顺序一致 | 无 |
+| `margin` | 内边距 `"上,下,左,右"`，与 SDK 二进制读取顺序一致 | `"0,0,0,0"` |
 | `clipSoftness` | 裁剪软边 `"x,y"` | 无 |
 | `lineGap` | 行间距 | `0` |
 | `colGap` | 列间距 | `0` |
