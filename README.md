@@ -32,6 +32,7 @@ fgui/
 ├── SKILL.md                    # Skill 入口文件
 ├── references/
 │   ├── notes.md               # 通用规则、GObject 属性
+│   ├── component_structure.md # component 根节点、滚动属性、遮罩与点击测试
 │   ├── transition.md          # 动效定义
 │   ├── transition_templates.md # 动效模板索引、选择流程、适配规则
 │   ├── gear.md                # 控制器、齿轮机制
@@ -76,6 +77,8 @@ fgui/
 - package.xml、资源声明、九宫格、scale9grid、tile、movieclip、jta、font、sound、atlas
 
 ## 按需加载原则
+
+组件根节点、滚动容器、遮罩或点击测试等结构细节读取 references/component_structure.md。
 
 `SKILL.md` 只负责路由。处理任务时先读取 `references/notes.md`，再按任务读取专项模块。涉及 `package.xml`、九宫格、tile、JTA、字体或音效资源声明时读取 `references/resources.md`。涉及预制动效时读取 `references/transition.md` 和 `references/transition_templates.md`，然后只读取实际需要的 `templates/*.md`。涉及 Unity 运行时代码时才读取 `references/unity_runtime.md`。只有维护或审查模板库时才批量读取所有模板。
 
