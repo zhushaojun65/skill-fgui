@@ -22,7 +22,7 @@
 | 显示元素 | image/text/loader/graph/list/group 等 |
 | 扩展组件 | Button/ProgressBar/Slider/ComboBox/Label 等 |
 | 关联关系 | 元素自适应布局 |
-| 资源包 | package.xml 资源声明、九宫格/tile、movieclip/jta、font/sound/atlas |
+| 资源包 | package.xml 资源声明、publish/atlas、九宫格/tile、movieclip/jta、font/sound/TMP 字体 |
 | Unity 运行时 | UIPackage/GComponent/Window/虚拟列表/扩展类注册等按需参考 |
 
 ## 文件结构
@@ -74,13 +74,13 @@ fgui/
 - 控制器、状态切换、gear、页面切换
 - 图片、文本、列表、loader、image、text
 - Button、进度条、滑块、下拉框
-- package.xml、资源声明、九宫格、scale9grid、tile、movieclip、jta、font、sound、atlas
+- package.xml、资源声明、publish、atlas、九宫格、scale9grid、tile、movieclip、jta、font、sound、TMP 字体
 
 ## 按需加载原则
 
 组件根节点、滚动容器、遮罩或点击测试等结构细节读取 references/component_structure.md。
 
-`SKILL.md` 只负责路由。处理任务时先读取 `references/notes.md`，再按任务读取专项模块。涉及 `package.xml`、九宫格、tile、JTA、字体或音效资源声明时读取 `references/resources.md`。涉及预制动效时读取 `references/transition.md` 和 `references/transition_templates.md`，然后只读取实际需要的 `templates/*.md`。涉及 Unity 运行时代码时才读取 `references/unity_runtime.md`。只有维护或审查模板库时才批量读取所有模板。
+`SKILL.md` 只负责路由。处理任务时先读取 `references/notes.md`，再按任务读取专项模块。涉及 `package.xml`、`publish/atlas`、九宫格、tile、JTA、字体或音效资源声明时读取 `references/resources.md`。涉及预制动效时读取 `references/transition.md` 和 `references/transition_templates.md`，然后只读取实际需要的 `templates/*.md`。涉及 Unity 运行时代码时才读取 `references/unity_runtime.md`。只有维护或审查模板库时才批量读取所有模板。
 
 ## 动效模板分类
 

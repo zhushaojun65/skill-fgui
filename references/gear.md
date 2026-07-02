@@ -3,7 +3,7 @@
 ## 定义语法
 
 ```xml
-<controller name="控制器名" pages="页索引0,页名0,页索引1,页名1,..." selected="默认页索引"/>
+<controller name="控制器名" pages="页ID0,页名0,页ID1,页名1,..." selected="默认页索引"/>
 ```
 
 ### 属性
@@ -11,10 +11,12 @@
 | 属性 | 说明 | 默认值 |
 |------|------|--------|
 | `name` | 控制器名称 | 必填 |
-| `pages` | 页面列表 `"索引,名称,索引,名称,..."` | 必填 |
-| `selected` | 默认选中页索引 | `"0"` |
+| `pages` | 页面列表 `"页ID,名称,页ID,名称,..."`；页 ID 通常是数字字符串，但不要求连续 | 必填 |
+| `selected` | 默认选中页索引（不是页 ID） | `"0"` |
+| `exported` | 控制器是否导出给外部引用，源 XML 示例中可见 | `false` |
 | `autoRadioGroupDepth` | 自动管理 Radio 组深度 | `false` |
-| `homePageCapture` | 记忆首页状态 | `false` |
+
+示例 `pages="0,,2,,3," selected="1"` 表示有 3 个页面，页 ID 为 `0/2/3`，默认选中第 2 个页面。给 Button 写 `controller/page` 时使用目标页 ID，而不是 `selected` 索引。
 
 ### 控制器动作
 
@@ -76,7 +78,7 @@
 | `gearXY` | 1 | 位置 | `"x,y\|x,y"` |
 | `gearSize` | 2 | 尺寸+缩放 | `"w,h,scaleX,scaleY\|..."` |
 | `gearLook` | 3 | 外观 | `"alpha,rotation,grayed,touchable\|..."` |
-| `gearColor` | 4 | 颜色 | `"#颜色,#描边颜色\|..."` |
+| `gearColor` | 4 | 颜色 | 文本常用 `"#颜色,#描边颜色\|..."`；图片/影片剪辑等通常只写 `"#颜色\|..."` |
 | `gearAni` | 5 | 动画 | `"帧,状态(p/s)\|..."` |
 | `gearText` | 6 | 文本 | `"文本1\|文本2"` |
 | `gearIcon` | 7 | 图标 | `"url1\|url2"` |
@@ -153,6 +155,11 @@
   <!-- 格式: 主颜色,描边颜色 -->
   <gearColor controller="c1" pages="1" values="#000000,#000000" default="#ffffff,#000000"/>
 </text>
+
+<image>
+  <!-- 图片/影片剪辑等通常只有一个颜色值 -->
+  <gearColor controller="button" pages="0,1,2,3" values="#ffffff|-|#ffffff|-" default="#dfb536"/>
+</image>
 ```
 
 ## gearAni - 动画控制

@@ -59,7 +59,7 @@
       shadowColor="#000000" shadowOffset="1,1"
       ubb="false" vars="true"
       strikethrough="false"
-      text="显示文本"/>
+      text="显示文本" demoText="编辑器预览文本"/>
 ```
 
 | 属性 | 说明 | 默认值 |
@@ -69,7 +69,7 @@
 | `color` | 文字颜色 `#RRGGBB` | `"#000000"` |
 | `align` | 水平对齐: `left`, `center`, `right` | `"left"` |
 | `vAlign` | 垂直对齐: `top`, `middle`, `bottom` | `"top"` |
-| `autoSize` | 自动尺寸 | `"none"` |
+| `autoSize` | 自动尺寸: `none`, `both`, `height`, `shrink`, `ellipsis` | 源 XML 省略时由编辑器/发布数据决定；固定文本框建议显式写 `"none"` |
 | `singleLine` | 单行显示 | `false` |
 | `leading` | 行间距 | `3` |
 | `letterSpacing` | 字距 | `0` |
@@ -87,6 +87,7 @@
 | `ubb` | 是否支持 UBB 标签 | `false` |
 | `vars` | 是否启用模板变量（`{变量名}` 替换） | `false` |
 | `text` | 显示文本（支持 `&#xA;` 换行） | 空 |
+| `demoText` | 编辑器预览文字；SDK 示例中常见于按钮/下拉标题，不等同运行时 `text` | 无 |
 
 ---
 
@@ -101,7 +102,7 @@
           text="普通文本[color=#ff0000]红色文本[/color]"/>
 ```
 
-> 属性与 `text` 一致，但默认启用 UBB 和 HTML 标签解析。
+> 属性与 `text` 一致。`richtext` 会走 HTML 富文本渲染；若内容使用 FairyGUI UBB（如 `[color]`、`[img]`、`[url]`），源 XML 示例会显式写 `ubb="true"`，不要假定 richtext 标签会自动解析 UBB。
 
 ---
 
@@ -275,6 +276,7 @@
       lineGap="6" colGap="6"
       align="left" vAlign="top"
       defaultItem="ui://包ID组件ID"
+      ptrRes="headerResId,footerResId"
       selectionController="控制器名"
       pageController="控制器名"
       scrollItemToViewOnClick="true"
@@ -302,6 +304,7 @@
 | `lineGap` | 行间距 | `0` |
 | `colGap` | 列间距 | `0` |
 | `defaultItem` | 默认项组件 URL | 无 |
+| `ptrRes` | 下拉刷新/上拉加载资源 `"headerResId,footerResId"`；只配置一端时保留逗号占位，如 `"ui://pkg/header,"` | 无 |
 | `selectionController` | 选中项同步到指定控制器 | 无 |
 | `pageController` | 分页/滚动页同步到指定控制器 | 无 |
 | `scrollItemToViewOnClick` | 点击项时滚动到可见区域 | `false` |
@@ -324,6 +327,8 @@
 | `512` | 禁用遮罩裁剪 |
 | `1024` | 滚动条浮动 |
 | `2048` | 不裁剪 margin |
+
+`<item>` 在 `<list>` / `<ComboBox>` 下表示预设项，常用 `title`、`icon`、`name`、`selectedTitle`、`selectedIcon`、`level` 等属性；在 `<transition>` 下的 `<item>` 是动效关键帧，两者语义完全不同，修改时先看父节点。
 
 ### 树形列表写法
 

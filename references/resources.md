@@ -26,9 +26,10 @@ FairyGUI 源工程里同名标签可能出现在不同层级，语义不同：
     <movieclip id="动画ID" name="pet.jta" path="/"/>
     <font id="字体ID" name="number.fnt" path="/" exported="true"/>
     <sound id="音效ID" name="click.wav" path="/"/>
-    <atlas name="atlas0" index="0"/>
   </resources>
-  <publish name="包名"/>
+  <publish name="包名">
+    <atlas name="Default" index="0"/>
+  </publish>
 </packageDescription>
 ```
 
@@ -36,12 +37,12 @@ FairyGUI 源工程里同名标签可能出现在不同层级，语义不同：
 |------|------|------------------|
 | `packageDescription` | 包描述根节点，常带 `id`、`jpegQuality`、`compressPNG` | 常见 |
 | `resources` | 包内资源声明集合 | 常见 |
-| `publish` | 发布包名称 | 常见 |
+| `publish` | 发布包名称；图集声明位于该节点内部 | 常见 |
 | `image` | 图片资源声明 | 高频 |
 | `movieclip` | JTA/影片剪辑资源声明 | 常见 |
 | `font` | 位图字体资源声明 | 常见 |
 | `sound` | 音效资源声明 | 少量 |
-| `atlas` | 图集声明，由编辑器维护 | 常见 |
+| `atlas` | 图集声明，位于 `<publish>` 内，由编辑器维护 | 常见 |
 | `swf` | SWF 资源声明 | 少量 |
 
 ## image 资源声明
@@ -51,6 +52,7 @@ FairyGUI 源工程里同名标签可能出现在不同层级，语义不同：
        scale="9grid" scale9grid="12,7,61,14"
        duplicatePadding="true" exported="true"/>
 <image id="tileBg" name="repeat.png" path="/images/" scale="tile"/>
+<image id="rawBg" name="Paper.jpg" path="/" scale="" duplicatePadding="true"/>
 ```
 
 | 属性 | 说明 |
@@ -62,6 +64,8 @@ FairyGUI 源工程里同名标签可能出现在不同层级，语义不同：
 | `scale` | 图片资源缩放模式；SDK 示例确认 `9grid`、`tile` |
 | `scale9grid` | 九宫格区域 `"x,y,w,h"`，仅在 `scale="9grid"` 时使用 |
 | `duplicatePadding` | 图集边缘复制，常用于避免采样漏边 |
+
+`scale=""` 在 SDK 示例源工程中可见，通常表示编辑器保留的“无特殊缩放模式”。修改已有资源时保留它；新增资源时若不需要九宫格或平铺，优先省略 `scale`，不要把空字符串当作第三种可设计的缩放模式。
 
 写组件显示对象时引用资源 ID：
 
@@ -90,16 +94,21 @@ FairyGUI 源工程里同名标签可能出现在不同层级，语义不同：
 
 ```xml
 <font id="p3yav" name="cdtime.fnt" path="/" exported="true"/>
+<font id="wa8u2r" name="BMFontTest.fnt" path="/font/" exported="true" texture="jb800"/>
+<font id="v040e" name="LiberationSans SDF.ttf" path="/font/" renderMode="sdfaa" samplePointSize="60"/>
 <sound id="gkq03" name="BUZZ4.wav" path="/images/"/>
-<atlas name="atlas0" index="0"/>
 <swf id="swfId" name="asset.swf" path="/"/>
+<publish name="Basics">
+  <atlas name="Default" index="0"/>
+</publish>
 ```
 
 资源使用规则：
 
 - `font` 资源可被文本 `font="ui://包ID字体ID"` 引用。
+- BMFont `.fnt` 可带 `texture="图片资源ID"` 指向字体贴图；TextMeshPro `.ttf` 示例可带 `renderMode="sdfaa"`、`samplePointSize="60"`。
 - `sound` 资源可被 Button/Label/ProgressBar/ComboBox 子元素的 `sound` 或 Transition 的 `Sound` item 引用。
-- `atlas` 通常由编辑器发布维护，手写组件 XML 时不要主动改。
+- `atlas` 通常由编辑器发布维护，位置在 `<publish>` 内，手写组件 XML 时不要主动改。
 - `swf` 仅在源工程已有对应资源时保留；新写 UI 优先使用 SDK 当前支持的 image/movieclip/component 资源。
 
 ## 自检规则
@@ -108,3 +117,5 @@ FairyGUI 源工程里同名标签可能出现在不同层级，语义不同：
 - 不要把 `package.xml` 的 `image scale="9grid|tile"` 当作显示对象缩放；显示对象缩放应写 `scale="sx,sy"`。
 - 九宫格资源需要同时保留 `scale="9grid"` 与 `scale9grid`；只写 `scale9grid` 语义不完整。
 - `movieclip` 资源声明和显示列表里的 `movieclip`/`jta` 实例要区分：前者带 `path`，后者带 `src`、`xy` 等显示对象属性。
+- 不要把 `<atlas>` 写进 `<resources>`；当前 SDK 示例工程把它放在 `<publish>` 内。
+- 新增或维护字体资源时保留 `.fnt` 的 `texture`、TMP `.ttf` 的 `renderMode` / `samplePointSize`，否则 Unity 端字体解析可能缺少必要元数据。

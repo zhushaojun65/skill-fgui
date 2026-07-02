@@ -202,9 +202,7 @@
     <text name="title" xy="5,5" size="120,20"/>
     <image name="arrow" src="dropdown_arrow" xy="130,10"/>
   </displayList>
-  <ComboBox dropdown="ui://包ID下拉列表组件ID"
-            visibleItemCount="10"
-            direction="auto|up|down"/>
+  <ComboBox dropdown="ui://包ID下拉列表组件ID"/>
 </component>
 ```
 
@@ -215,14 +213,17 @@
 | 属性 | 说明 | 默认值 |
 |------|------|--------|
 | `dropdown` | 下拉面板资源 URL | 必填 |
-| `visibleItemCount` | 下拉可见项数 | `10` |
-| `direction` | 弹出方向 | `"auto"` |
 
 ### 作为子元素引用时
 
 ```xml
 <component src="comboRes">
-  <ComboBox titleColor="#ffffff" selectionController="tabCtrl">
+  <ComboBox title="选项1" icon="ui://图标URL"
+            titleColor="#ffffff"
+            visibleItemCount="10"
+            direction="auto|up|down"
+            selectionController="tabCtrl"
+            sound="ui://音效URL" volume="100">
     <item title="选项1" value="opt1" icon="ui://图标URL"/>
     <item title="选项2" value="opt2"/>
     <item title="选项3" value="opt3"/>
@@ -232,8 +233,15 @@
 
 | 属性 | 说明 |
 |------|------|
+| `title` | 当前显示标题；省略时通常选第一项 |
+| `icon` | 当前显示图标 |
 | `titleColor` | 标题颜色 |
+| `visibleItemCount` | 下拉可见项数 |
+| `direction` | 弹出方向: `auto`, `up`, `down` |
 | `selectionController` | 选中项关联的控制器 |
+| `sound` / `volume` | 点击音效 URL 与音量 |
+
+`<ComboBox>` 内的 `<item>` 是下拉选项，不是 Transition 关键帧；常用属性为 `title`、`value`、`icon`。
 
 **约定名称**:
 - `title`: 当前选中项文本

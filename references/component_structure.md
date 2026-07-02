@@ -11,7 +11,7 @@
                [overflow="visible|hidden|scroll"] [opaque="true"]
                [margin="上,下,左,右"] [clipSoftness="x,y"]
                [mask="遮罩元素ID"] [reversedMask="false"]
-               [hitTest="resourceId,x,y"]>
+               [hitTest="子对象ID或像素检测资源ID"]>
       <controller ... />       <!-- 控制器定义 -->
       <displayList>            <!-- 显示列表 -->
         ...                    <!-- 显示元素 -->
@@ -34,12 +34,17 @@
 | clipSoftness | 裁剪软边 "x,y" | 无 |
 | mask | 遮罩元素 ID | 无 |
 | reversedMask | 是否反向遮罩 | false |
-| hitTest | 像素级点击测试 "resourceId,x,y" | 无 |
+| hitTest | 点击测试目标；SDK 源 XML 示例使用子对象 ID，如 `hitTest="n1"` 或 `hitTest="n36_qz1h"` | 无 |
 | bgColor / bgColorEnabled | 组件背景色与是否启用背景色 | 无 / false |
 | initName | 初始化名称，源 XML 可出现 | 无 |
 | idnum | 编辑器生成 ID 计数，保留即可，手写通常不需要 | 无 |
+| designImageAlpha / designImageLayer / designImageOffsetX / designImageOffsetY | 编辑器设计底图辅助属性，源 XML 可出现，运行时业务逻辑不要依赖 | 无 |
+
+`hitTest` 在发布后二进制里会被编译成像素检测资源、偏移或形状检测目标；写源 XML 时不要手写 `"resourceId,x,y"` 三元组。需要像素点击时引用参与检测的图片子节点；需要形状点击时引用不可见 graph 子节点，保持与 SDK `HitTest` 示例一致。
 
 ## 滚动属性（overflow="scroll" 时）
+
+SDK 源 XML 示例中少量组件根节点会带 `scroll="..."` 但不显式写 `overflow="scroll"`，例如扩展 Button 或列表项的编辑器产物。维护已有 XML 时保留这些属性；新增真正可滚动容器时应显式写 `overflow="scroll"`，并再配置下表属性。
 
 | 属性 | 说明 | 默认值 |
 |------|------|--------|

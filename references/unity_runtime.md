@@ -14,10 +14,20 @@ GComponent view = UIPackage.CreateObject("Basics", "Main").asCom;
 GRoot.inst.AddChild(view);
 ```
 
+AssetBundle 包示例：
+
+```csharp
+AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
+UIPackage.AddPackage(bundle);
+GComponent view = UIPackage.CreateObject("BundleUsage", "Main").asCom;
+```
+
 | API | 用途 |
 |-----|------|
-| `UIPackage.AddPackage(...)` | 加载 FairyGUI 包；示例工程同时有路径包和 AssetBundle 包用法 |
+| `UIPackage.AddPackage(...)` | 加载 FairyGUI 包；支持路径包、`AssetBundle`、二进制包数据和自定义资源加载函数等重载 |
 | `UIPackage.CreateObject(...)` | 创建包内对象 |
+| `UIPackage.CreateObjectFromURL(...)` | 通过 `ui://...` URL 创建对象；支持同步、指定用户类型和异步回调形式 |
+| `UIPackage.GetItemAsset(...)` / `GetItemAssetByURL(...)` | 获取包内原始资源，如 `NTexture`、`NAudioClip` |
 | `GRoot.inst.AddChild(...)` | 把 UI 加到根节点 |
 | `GComponent.GetChild(...)` | 获取子对象 |
 | `GComponent.GetController(...)` | 获取控制器 |
@@ -32,7 +42,28 @@ UIPackage.AddPackage("UI/VirtualList");
 UIObjectFactory.SetPackageItemExtension("ui://VirtualList/mailItem", typeof(MailItem));
 ```
 
-注册 URL 必须指向包内组件资源。组件类通常继承 `GComponent` 或对应扩展类型，并在 `ConstructFromXML` / 构造后流程中缓存子节点、控制器和 transition。
+注册 URL 必须指向包内组件资源，可使用 `ui://包名/资源名`，也可使用编辑器生成的包 ID + 资源 ID URL。组件类通常继承 `GComponent` 或对应扩展类型，并在 `ConstructFromXML` / 构造后流程中缓存子节点、控制器和 transition。
+
+自定义 `GLoader` 用于加载 UI 包外部资源时，注册 Loader 扩展类：
+
+```csharp
+UIObjectFactory.SetLoaderExtension(typeof(MyGLoader));
+
+public class MyGLoader : GLoader
+{
+    protected override void LoadExternal()
+    {
+        IconManager.inst.LoadIcon(this.url, OnLoadSuccess, OnLoadFail);
+    }
+
+    protected override void FreeExternal(NTexture texture)
+    {
+        texture.refCount--;
+    }
+}
+```
+
+`SetLoaderExtension` 会替换运行时新建 `ObjectType.Loader` 时使用的默认 `GLoader`。只需要自定义 `loader` 的外部资源加载逻辑时使用它；普通包内图片和组件引用仍走 `src` / `url` 与 `UIPackage` 资源解析。
 
 ## Transition 触发
 

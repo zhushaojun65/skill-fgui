@@ -10,13 +10,15 @@
 4.  **帧率**: 动效内部的 `time`/`duration` 按动效自身的 `frameRate` 换算；`frameRate="24"` 时 24 帧 = 1 秒，`frameRate="30"` 时 30 帧 = 1 秒
 5.  **颜色格式**: 
     *   普通颜色: `#RRGGBB`
-    *   带透明度: `#AARRGGBB`
+    *   带透明度: `#AARRGGBB`（源 XML 示例大量使用，如 `#ff333333`、`#00ffffff`）
 6.  **值分隔符**: 
     *   坐标用逗号: `"100,200"`
     *   多值用竖线: `"值1|值2|值3"`
 7.  **保留值**: `-` 表示保持原值不变（如 `"-,100"` 表示X不变，Y=100）
 
 ## GObject 通用属性
+
+Unity 运行时 `ByteBuffer.ReadColor()` 读取的是发布后二进制的 RGBA 字节；生成或修改源 XML 时仍按编辑器源文件的 `#RRGGBB` / `#AARRGGBB` 写法，不要把二进制读取顺序倒推回 XML。
 
 以下属性适用于所有显示元素（image/text/graph/loader/component 等）：
 
